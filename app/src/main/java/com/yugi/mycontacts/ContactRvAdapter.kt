@@ -8,32 +8,42 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
+import com.yugi.mycontacts.databinding.ContactsListItemBinding
+import java.util.zip.Inflater
 
 class ContactRvAdapter (var contactList: List<Contact>):
 RecyclerView.Adapter<ContactsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
-     var itemView=LayoutInflater.from(parent.context)
-         .inflate(R.layout.contacts_list_item,parent,false)
-        return ContactsViewHolder(itemView)
+        var binding=ContactsListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        var ContactsViewHolder=ContactsViewHolder(binding)
+        return ContactsViewHolder
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         var currentContact=contactList.get(position)
-        holder.tvNmae.text=currentContact.name
-        holder.tvPhoneNo.text=currentContact.phoneNumber
-        holder.tvEmail.text=currentContact.email
-        holder.tvAddress.text=currentContact.address
+        holder.binding.tvNmae.text=currentContact.name
+        holder.binding.tvPhoneNo.text=currentContact.phoneNumber
+        holder.binding.tvEmail.text=currentContact.email
+        holder.binding.tvAddress.text=currentContact.address
+        Picasso.get()
+            .load(currentContact.image)
+            .placeholder(R.drawable.ic_baseline_person_24)
+            .error(R.drawable.ic_baseline_error_outline_24)
+            .resize(300,300)
+            .centerCrop()
+            .networkPolicy(NetworkPolicy.OFFLINE)
+            .memoryPolicy(MemoryPolicy.NO_STORE)
+            .into(holder.binding.imgContact)
+
     }
 
     override fun getItemCount(): Int {
-       return  3
+       return  6
     }
 }
-class ContactsViewHolder(itemView: View):
-        RecyclerView.ViewHolder(itemView){
-            var tvNmae=itemView.findViewById<TextView>(R.id.tvNmae)
-            var tvPhoneNo=itemView.findViewById<TextView>(R.id.tvPhoneNo)
-            var tvAddress=itemView.findViewById<TextView>(R.id.tvAddress)
-            var tvEmail=itemView.findViewById<TextView>(R.id.tvEmail)
-            var imgContact=itemView.findViewById<ImageView>(R.id.imgContact)
+class ContactsViewHolder(var binding: ContactsListItemBinding): RecyclerView.ViewHolder(binding.root){
+
         }
