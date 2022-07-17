@@ -1,11 +1,13 @@
 package com.yugi.mycontacts
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.MemoryPolicy
@@ -35,13 +37,25 @@ RecyclerView.Adapter<ContactsViewHolder>() {
             .resize(300,300)
             .centerCrop()
             .networkPolicy(NetworkPolicy.OFFLINE)
-            .memoryPolicy(MemoryPolicy.NO_STORE)
             .into(holder.binding.imgContact)
 
+      val context=holder.itemView.context
+holder.binding.imgContact.setOnClickListener{
+    Toast.makeText(context,"You have clicked on ${currentContact.name}'s image",Toast.LENGTH_SHORT).show()
+}
+        holder.binding.cvContact.setOnClickListener{
+            val intent=Intent(context,ViewContactActivity::class.java)
+            intent.putExtra("NAME",currentContact.name)
+            intent.putExtra("EMAIL",currentContact.email)
+            intent.putExtra("PHONE_NUMBER",currentContact.phoneNumber)
+            intent.putExtra("ADDRESS",currentContact.address)
+            intent.putExtra("IMAGE",currentContact.image)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
-       return  6
+       return  contactList.size
     }
 }
 class ContactsViewHolder(var binding: ContactsListItemBinding): RecyclerView.ViewHolder(binding.root){
