@@ -9,10 +9,10 @@ import com.yugi.mycontacts.databinding.ActivityViewContactBinding
 import com.yugi.mycontacts.databinding.ContactsListItemBinding
 
 class ViewContactActivity : AppCompatActivity() {
-    lateinit var binding: ContactsListItemBinding
+    lateinit var binding: ActivityViewContactBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ContactsListItemBinding.inflate(layoutInflater)
+        binding= ActivityViewContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         getExtras()
@@ -20,6 +20,7 @@ class ViewContactActivity : AppCompatActivity() {
     fun getExtras(){
         val extras=intent.extras
         val image=extras?.getString("IMAGE","")
+
         Picasso.get()
             .load(image)
             .placeholder(R.drawable.ic_baseline_person_24)
@@ -27,16 +28,16 @@ class ViewContactActivity : AppCompatActivity() {
             .resize(300,300)
             .centerCrop()
             .networkPolicy(NetworkPolicy.OFFLINE)
-            .into(binding.imgContact)
+            .into(binding.imgContact1)
         val name=extras?.getString("NAME","")
-        binding.tvNmae.text=name
+        binding.tvName1.text=name
         val email=extras?.getString("EMAIL","")
-        binding.tvEmail.text=email
+        binding.tvEmail2.text=email
         val phonenumber=extras?.getString("PHONE_NUMBER","")
-        binding.tvPhoneNo.text=phonenumber
+        binding.tvNumber1.text=phonenumber
         val address=extras?.getString("ADDRESS","")
-        binding.tvAddress.text=address
+        binding.tvAddress2.text=address
 
-        Toast.makeText(this,"$name:$email:$phonenumber:$address",Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"$name:$email",Toast.LENGTH_LONG).show()
     }
 }
