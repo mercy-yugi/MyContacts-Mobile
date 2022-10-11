@@ -1,12 +1,12 @@
-package com.yugi.mycontacts
+package com.yugi.mycontacts.Ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import com.yugi.mycontacts.R
 import com.yugi.mycontacts.databinding.ActivityViewContactBinding
-import com.yugi.mycontacts.databinding.ContactsListItemBinding
 
 class ViewContactActivity : AppCompatActivity() {
     lateinit var binding: ActivityViewContactBinding

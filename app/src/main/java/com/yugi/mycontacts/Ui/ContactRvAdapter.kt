@@ -2,19 +2,14 @@ package com.yugi.mycontacts
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.TextureView
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import com.yugi.mycontacts.Model.Contact
+import com.yugi.mycontacts.Ui.ViewContactActivity
 import com.yugi.mycontacts.databinding.ContactsListItemBinding
-import java.util.zip.Inflater
 
 class ContactRvAdapter (var contactList: List<Contact>):
 RecyclerView.Adapter<ContactsViewHolder>() {
@@ -44,7 +39,7 @@ holder.binding.imgContact.setOnClickListener{
     Toast.makeText(context,"You have clicked on ${currentContact.name}'s image",Toast.LENGTH_SHORT).show()
 }
         holder.binding.cvContact.setOnClickListener{
-            val intent=Intent(context,ViewContactActivity::class.java)
+            val intent=Intent(context, ViewContactActivity::class.java)
             intent.putExtra("NAME",currentContact.name)
             intent.putExtra("EMAIL",currentContact.email)
             intent.putExtra("PHONE_NUMBER",currentContact.phoneNumber)
